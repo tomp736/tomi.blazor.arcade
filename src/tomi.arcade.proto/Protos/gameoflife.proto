@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option csharp_namespace = "tomi.arcade.protos";
+
+package gameoflife;
+
+service GameOfLifeService {
+  rpc GetState (GameStateRequest) returns (stream GameStateResponse);
+}
+
+message GameStateRequest {
+  GameMap gameMap = 1;
+  repeated bool gameState = 2;
+}
+
+message GameStateResponse {
+  GameMap gameMap = 1;
+  repeated CellState gameState = 2;
+}
+
+message GameMap
+{
+	int32 x = 1;
+	int32 y = 2;
+}
+
+message CellState
+{
+	int32 key = 1;
+	bool value = 2;
+}
