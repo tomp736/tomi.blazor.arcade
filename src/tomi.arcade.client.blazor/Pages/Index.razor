@@ -7,64 +7,11 @@
 @inject protos.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
 @inject IJSRuntime JsRuntime
 
-<canvas id="gameCanvas"></canvas>
-
-@if(!running)
-{
-    <button class="btn btn-primary" @onclick="Start">Start</button>    
-}
-else
-{
-    <button class="btn btn-primary" @onclick="Stop">Stop</button>    
-}
-
-@code {
-    private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-    private bool running = false;
-
-
-    private async Task Stop()
-    {
-        running = false;
-        if (cancellationTokenSource != null)
-        {
-            if (!cancellationTokenSource.IsCancellationRequested)
-            {
-                cancellationTokenSource.Cancel();
-            }
-        }
-        cancellationTokenSource = new CancellationTokenSource();
-    }
-    private async Task Start()
-    {
-        running = true;
-        try
-        {
-            var state = GameOfLifeClient.GetState(new protos.GameStateRequest()
-            {
-                GameMap = new protos.GameMap()
-                {
-                    X = 800,
-                    Y = 800
-                }
-            }, cancellationToken: cancellationTokenSource.Token);
-
-            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", 800, 800);
-
-            while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
-            {
-                running = true;
-                protos.GameStateResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
-            }
-        }
-        catch (RpcException rpcException)
-        {
-            // cancelled, so...            
-        }
-        catch (OperationCanceledException)
-        {
-            // cancelled, so...
-        }
-    }
-}
+<div class="card" style="width: 18rem;">
+    <img src="img/gol.png" class="card-img-top" />
+    <div class="card-body">
+        <h5 class="card-title">Game of Life</h5>
+        @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>*@
+        <a href="/gol" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
