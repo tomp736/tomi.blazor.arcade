@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace tomi.arcade.server.grpc
+namespace tomi.arcade.game.server
 {
     public class Startup
     {
@@ -23,11 +19,13 @@ namespace tomi.arcade.server.grpc
                 options.ResponseCompressionAlgorithm = "gzip";
             });
 
-            //services.AddResponseCompression(opts =>
-            //{
-            //    opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-            //        new[] { "application/octet-stream" });
-            //});
+            // grpc client for gol.server
+            services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>((provider, options) =>
+            {
+                var config = provider.GetRequiredService<IConfiguration>();
+                var uri = config.GetServiceUri("GolServer") ?? new System.Uri("https://localhost:5005");
+                options.Address = uri;
+            });
 
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>
             {

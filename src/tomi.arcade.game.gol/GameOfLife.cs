@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace tomi.arcade.gameoflife
+namespace tomi.arcade.game.gol
 {
     // https://github.com/Kohana55/ConwaysGameOfLife
     public class GameOfLife
