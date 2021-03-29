@@ -1,0 +1,16 @@
+﻿{
+  "profiles": {
+    "tomi.arcade.game.server": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5002;https://localhost:5003",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Service__GolServer__https__Host": "localhost",
+        "Service__GolServer__https__Port": "5005",
+        "Service__GolServer__https__Protocol": "https"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "tomi.arcade.client.blazor": {
+    "tomi.arcade.game.client": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

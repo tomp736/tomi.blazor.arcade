@@ -2,12 +2,10 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using tomi.arcade.gameoflife;
 using tomi.arcade.protos;
 
-namespace tomi.arcade.server.grpc
+namespace tomi.arcade.game.gol.server
 {
     public class GameOfLifeService : protos.GameOfLifeService.GameOfLifeServiceBase
     {
@@ -56,7 +54,7 @@ namespace tomi.arcade.server.grpc
                     }
                     else
                     {
-                        for(int i = 0; i < thisGeneration.Count; i++)
+                        for (int i = 0; i < thisGeneration.Count; i++)
                         {
                             var lastCell = lastGeneration[i];
                             var thisCell = thisGeneration[i];

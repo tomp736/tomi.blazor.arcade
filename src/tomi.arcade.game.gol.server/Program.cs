@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace tomi.arcade.server.grpc
+namespace tomi.arcade.game.gol.server
 {
     public class Program
     {

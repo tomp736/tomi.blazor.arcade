@@ -1,10 +1,10 @@
 ﻿{
   "profiles": {
-    "tomi.arcade.server.grpc": {
+    "tomi.arcade.game.gol.server": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5002;https://localhost:5003",
+      "applicationUrl": "http://localhost:5004;https://localhost:5005",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
