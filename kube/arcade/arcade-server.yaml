@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: arcade-server
+  namespace: arcade
+  labels:
+    app: arcade
+spec:
+  selector:
+    matchLabels:
+      run: arcade-server
+  replicas: 4
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        run: arcade-server
+    spec:
+      containers:
+      - name: arcade-server
+        image: 10.101.153.109:5000/arcade-server
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+          value: "true"
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:80"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcade-server
+  namespace: arcade
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    nodePort: 36000
+  - name: https
+    port: 443
+    nodePort: 36001
+  selector:
+    run: arcade-server

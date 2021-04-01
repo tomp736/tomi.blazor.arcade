@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tomi.arcade.game.gol\tomi.arcade.game.gol.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="..\tomi.arcade.proto\Protos\gameoflife.proto" GrpcServices="Both">
       <Link>Protos\gameoflife.proto</Link>
     </Protobuf>
