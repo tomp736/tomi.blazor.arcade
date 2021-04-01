@@ -21,6 +21,7 @@ spec:
       containers:
       - name: arcade-server
         image: 10.101.153.109:5000/arcade-server
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 100m
@@ -32,7 +33,7 @@ spec:
         - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
           value: "true"
         - name: ASPNETCORE_URLS
-          value: "http://+:80;"
+          value: "http://0.0.0.0:80"
 ---
 
 apiVersion: v1

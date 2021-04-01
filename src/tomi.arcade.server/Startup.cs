@@ -51,7 +51,7 @@ namespace tomi.arcade.server
             app.UseRouting();
 
             app.UseGrpcWeb();
-            app.UseCors("AllowAll");
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {

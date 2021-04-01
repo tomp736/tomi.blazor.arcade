@@ -21,6 +21,7 @@ spec:
       containers:
       - name: arcade-blazor-client
         image: 10.101.153.109:5000/arcade-blazor-client
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 100m
