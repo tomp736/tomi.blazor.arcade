@@ -1,6 +1,7 @@
 # build intermediary
 FROM mcr.microsoft.com/dotnet/sdk:5.0 as build
 EXPOSE 80
+EXPOSE 443
 
 WORKDIR /code
 COPY ./src/tomi.arcade.server/tomi.arcade.server.csproj ./src/tomi.arcade.server/
