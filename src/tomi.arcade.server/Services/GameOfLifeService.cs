@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using tomi.arcade.protos;
 
-namespace tomi.arcade.game.server
+namespace tomi.arcade.server
 {
     public class GameOfLifeService : protos.GameOfLifeService.GameOfLifeServiceBase
     {
