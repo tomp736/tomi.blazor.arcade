@@ -2,11 +2,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
 WORKDIR /code
-COPY ./src/tomi.arcade.game.client/tomi.arcade.game.client.csproj .
+COPY ./src/tomi.arcade.game.client/tomi.arcade.game.client.csproj ./src/tomi.arcade.game.client/
+COPY ./src/tomi.arcade.proto ./src/tomi.arcade.proto
+
+
+WORKDIR /code/src/tomi.arcade.game.client
 RUN dotnet restore "tomi.arcade.game.client.csproj"
 
 # build 
-COPY ./src/tomi.arcade.game.client .
+COPY ./src/tomi.arcade.game.client ./src/tomi.arcade.game.client
 RUN dotnet build "tomi.arcade.game.client.csproj" -c Release -o /build
 
 # publish 
