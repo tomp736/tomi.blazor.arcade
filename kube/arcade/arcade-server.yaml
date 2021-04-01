@@ -32,7 +32,7 @@ spec:
         - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
           value: "true"
         - name: ASPNETCORE_URLS
-          value: "http://0.0.0.0:80;"
+          value: "http://+:80;"
 ---
 
 apiVersion: v1
