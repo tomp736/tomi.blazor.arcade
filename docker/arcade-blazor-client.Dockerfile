@@ -10,11 +10,11 @@ WORKDIR /code/src/tomi.arcade.game.client
 RUN dotnet restore "tomi.arcade.game.client.csproj"
 
 # build 
-COPY ./src/tomi.arcade.game.client ./src/tomi.arcade.game.client
+COPY ./src/tomi.arcade.game.client /code/src/tomi.arcade.game.client
 RUN dotnet build "tomi.arcade.game.client.csproj" -c Release -o /build
 
 # publish 
-FROM build-env AS publish
+FROM build AS publish
 RUN dotnet publish "tomi.arcade.game.client.csproj" -c Release -o /publish
 
 # final image on nginx
