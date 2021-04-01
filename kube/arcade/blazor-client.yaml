@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: blazor-client
+  namespace: arcade
+  labels:
+    app: arcade
+spec:
+  selector:
+    matchLabels:
+      run: blazor-client
+  replicas: 4
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        run: blazor-client
+    spec:
+      containers:
+      - name: blazor-client
+        image: 10.101.153.109:5000/blazor-client
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+          value: "true"
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:80"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: blazor-client
+  namespace: arcade
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+  selector:
+    run: blazor-client
