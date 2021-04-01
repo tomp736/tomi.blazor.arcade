@@ -32,7 +32,7 @@ namespace tomi.arcade.game.client
             {
                 // var arcadeServerHttp = Environment.GetEnvironmentVariable("ARCADE_SERVER_HTTP");
                 var navManager = provider.GetRequiredService<NavigationManager>();
-                options.Address = new Uri($"{navManager.BaseUri}:30010");
+                options.Address = new Uri($"http://135.181.39.113:30010/");
             })
             .ConfigureChannel((provider, options) =>
             {
