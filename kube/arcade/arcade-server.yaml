@@ -45,9 +45,9 @@ spec:
   ports:
   - name: http
     port: 80
-    nodePort: 36000
+    nodePort: 30010
   - name: https
     port: 443
-    nodePort: 36001
+    nodePort: 30011
   selector:
     run: arcade-server
