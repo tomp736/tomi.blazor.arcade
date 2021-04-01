@@ -40,9 +40,10 @@
             var deadCells = [];
 
             for (i = 0; i <= gameState.length - 1; i++) {
-                var cellState = gameState[i].value;
-                var x = gameState[i].key % _width;
-                var y = (gameState[i].key - x) / _width;
+                var cellIndex = Math.abs(gameState[i])
+                var cellState = gameState[i] > 0
+                var x = cellIndex % _width;
+                var y = (cellIndex - x) / _width;
 
                 if (cellState) {
                     liveCells.push({ x, y });
@@ -67,7 +68,7 @@
         },
 
         drawDead: function (cells) {
-            _context.fillStyle = "grey";
+            _context.fillStyle = "white";
             for (li = 0; li <= cells.length - 1; li++) {
                 _context.fillRect(cells[li].x, cells[li].y, 1, 1)
             }

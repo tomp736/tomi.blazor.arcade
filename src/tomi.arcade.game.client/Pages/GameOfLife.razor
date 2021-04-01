@@ -10,13 +10,13 @@
 
 <canvas id="gameCanvas"></canvas>
 
-@if(!running)
+@if (!running)
 {
-    <button class="btn btn-primary" @onclick="Start">Start</button>    
+    <button class="btn btn-primary" @onclick="Start">Start</button>
 }
 else
 {
-    <button class="btn btn-primary" @onclick="Stop">Stop</button>    
+    <button class="btn btn-primary" @onclick="Stop">Stop</button>
 }
 
 @code {
@@ -56,12 +56,15 @@ else
             {
                 running = true;
                 protos.GameStateResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
+                // convert cellstate(index,state) collection to int array to reduce size of jsInterop
+                // negative value indicates new live cell
+                // positive value indicates new dead cell
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState.Select(n => n.Value ? n.Key : -n.Key));
             }
         }
         catch (RpcException rpcException)
         {
-            // cancelled, so...            
+            // cancelled, so...
         }
         catch (OperationCanceledException)
         {
