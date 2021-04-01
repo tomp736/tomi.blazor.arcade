@@ -1,20 +1,19 @@
+# build intermediary
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
 WORKDIR /code
+COPY ./src/tomi.arcade.game.client/tomi.arcade.game.client.csproj .
+RUN dotnet restore "tomi.arcade.game.client.csproj"
 
-COPY ./tomi.blazor.arcade.sln .
-COPY ./src/tomi.arcade.game.client/tomi.arcade.game.client.csproj ./src/tomi.arcade.game.client/
-COPY ./src/tomi.arcade.proto/tomi.arcade.proto.csproj ./src/tomi.arcade.proto/
+# build 
+COPY ./src/tomi.arcade.game.client .
+RUN dotnet build "tomi.arcade.game.client.csproj" -c Release -o /build
 
-RUN dotnet restore
+# publish 
+FROM build-env AS publish
+RUN dotnet publish "tomi.arcade.game.client.csproj" -c Release -o /publish
 
-COPY . .
-
-RUN dotnet build -c Release --no-restore
-RUN dotnet test -c Release --no-build ./test/Ingredients.Tests/Ingredients.Tests.csproj
-RUN dotnet publish src/Ingredients -c Release -o /app --no-build
-
-# host blazor from nginx
+# final image on nginx
 FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html
 
