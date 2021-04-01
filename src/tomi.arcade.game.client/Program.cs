@@ -29,8 +29,8 @@ namespace tomi.arcade.game.client
         {
             builder.Services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
-                // 
-                options.Address = new Uri("https://www.labrats.work:30011");
+                var arcadeServerHttp = Environment.GetEnvironmentVariable("ARCADE_SERVER_HTTP");
+                options.Address = new Uri(arcadeServerHttp);
             })
             .ConfigureChannel((provider, options) =>
             {
