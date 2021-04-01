@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: blazor-client
+  name: arcade-blazor-client
   namespace: arcade
   labels:
     app: arcade
 spec:
   selector:
     matchLabels:
-      run: blazor-client
+      run: arcade-blazor-client
   replicas: 4
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        run: blazor-client
+        run: arcade-blazor-client
     spec:
       containers:
-      - name: blazor-client
-        image: 10.101.153.109:5000/blazor-client
+      - name: arcade-blazor-client
+        image: 10.101.153.109:5000/arcade-blazor-client
         resources:
           requests:
             cpu: 100m
@@ -38,7 +38,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: blazor-client
+  name: arcade-blazor-client
   namespace: arcade
 spec:
   type: NodePort
@@ -46,4 +46,4 @@ spec:
   - name: http
     port: 80
   selector:
-    run: blazor-client
+    run: arcade-blazor-client
