@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       run: arcade-blazor-client
-  replicas: 4
+  replicas: 1
   template:
     metadata:
       annotations:
