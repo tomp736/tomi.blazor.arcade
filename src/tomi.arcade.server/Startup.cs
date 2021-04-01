@@ -22,9 +22,11 @@ namespace tomi.arcade.server
             // grpc client for gol.server
             services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>((provider, options) =>
             {
-                var config = provider.GetRequiredService<IConfiguration>();
-                var uri = config.GetServiceUri("GolServer") ?? new System.Uri("https://localhost:5005");
-                options.Address = uri;
+                //var config = provider.GetRequiredService<IConfiguration>();
+                //var uri = config.GetServiceUri("GolServer") ?? new System.Uri("https://localhost:5005");
+                //options.Address = uri;
+
+                options.Address = new System.Uri("");
             });
 
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>

@@ -1,4 +1,5 @@
 using Grpc.Net.Client.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -30,7 +31,8 @@ namespace tomi.arcade.game.client
             builder.Services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
                 // var arcadeServerHttp = Environment.GetEnvironmentVariable("ARCADE_SERVER_HTTP");
-                options.Address = new Uri("http://www.labrats.work:30010");
+                var navManager = provider.GetRequiredService<NavigationManager>();
+                options.Address = new Uri($"{navManager.BaseUri}:30010");
             })
             .ConfigureChannel((provider, options) =>
             {
