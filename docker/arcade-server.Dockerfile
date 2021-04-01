@@ -1,5 +1,6 @@
 # build intermediary
 FROM mcr.microsoft.com/dotnet/sdk:5.0 as build
+EXPOSE 80
 
 WORKDIR /code
 COPY ./src/tomi.arcade.server/tomi.arcade.server.csproj ./src/tomi.arcade.server/
@@ -21,6 +22,6 @@ RUN dotnet publish "tomi.arcade.server.csproj" -c Release -o /publish
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 as runtime
 
 WORKDIR /app
-COPY --from=publish /publish .
+COPY --from=publish /publish ./
 
 ENTRYPOINT [ "dotnet", "tomi.arcade.server.dll"]
