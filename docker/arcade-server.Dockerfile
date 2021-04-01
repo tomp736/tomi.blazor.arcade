@@ -1,5 +1,5 @@
 # build intermediary
-FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 as build
 
 WORKDIR /code
 COPY ./src/tomi.arcade.server/tomi.arcade.server.csproj ./src/tomi.arcade.server/
@@ -18,9 +18,9 @@ FROM build AS publish
 RUN dotnet publish "tomi.arcade.server.csproj" -c Release -o /publish
 
 # final image on aspnet-focal
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 as runtime
 
-WORKDIR /publish
+WORKDIR /app
 COPY --from=publish /publish .
 
-ENTRYPOINT ["./tomi.arcade.server"]
+ENTRYPOINT [ "dotnet", "tomi.arcade.server.dll"]
