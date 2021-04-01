@@ -2,12 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-focal AS build
 
 WORKDIR /code
-COPY ./src/tomi.arcade..server/tomi.arcade.server.csproj ./src/tomi.arcade.server/
+COPY ./src/tomi.arcade.server/tomi.arcade.server.csproj ./src/tomi.arcade.server/
 COPY ./src/tomi.arcade.proto ./src/tomi.arcade.proto
 
 
 WORKDIR /code/src/tomi.arcade.server
-RUN dotnet restore "tomi.arcade.server/tomi.arcade.server.csproj"
+RUN dotnet restore "tomi.arcade.server.csproj"
 
 # build 
 COPY ./src/tomi.arcade.server /code/src/tomi.arcade.server
@@ -21,6 +21,6 @@ RUN dotnet publish "tomi.arcade.server.csproj" -c Release -o /publish
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-focal
 
 WORKDIR /publish
-COPY --from=build /publish .
+COPY --from=publish /publish .
 
 ENTRYPOINT ["./tomi.arcade.server"]
