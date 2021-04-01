@@ -29,7 +29,7 @@ namespace tomi.arcade.server
                 options.Address = new System.Uri("");
             });
 
-            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            services.AddCors(o => o.AddDefaultPolicy(builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
