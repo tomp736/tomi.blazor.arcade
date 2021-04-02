@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace tomi.arcade.game.gol
 {
-    // https://github.com/Kohana55/ConwaysGameOfLife
     public class GameOfLife
     {
         #region Properties & Fields
@@ -37,24 +36,9 @@ namespace tomi.arcade.game.gol
             // Cycle cells using rng to set live/dead cells
             var rng = new Random();
 
-            for (int i = 0; i < CurrentGeneration.Length; i++)
-            {
-                // Random Board
-                if (rng.Next(1, 101) < 95)
-                    CurrentGeneration[i] = false;
-                else
-                    CurrentGeneration[i] = true;
-            }
-        }
-
-        public void SetState(int[] gameState)
-        {
-            for (int i = 0; i < gameState.Length; i++)
-            {
-                int index = Math.Abs(gameState[i]);
-                bool state = gameState[i] > 0;
-                CurrentGeneration[index] = state;
-            }
+            // Random Board
+            CurrentGeneration = Enumerable.Range(0, CurrentGeneration.Length)
+                .Select(n => rng.Next(1, 101) < 95).ToArray();
         }
 
         private void TransferNextGenerations()
@@ -87,29 +71,35 @@ namespace tomi.arcade.game.gol
         #endregion
 
         #region Public
-        /// <summary>
-        /// Spawn the next generation
-        /// </summary>
+
         public void SpawnNextGeneration()
         {
             for (int i = 0; i < CurrentGeneration.Length; i++)
             {
                 int liveNeighbours = CalculateLiveNeighbours(i);
-                if (CurrentGeneration[i] == true && liveNeighbours < 2)
-                    nextGeneration[i] = false;
 
-                else if (CurrentGeneration[i] == true && liveNeighbours > 3)
+                // dies is alive and alone, or alive and crowded
+                if (CurrentGeneration[i] == true && (liveNeighbours < 2 || liveNeighbours > 3))
                     nextGeneration[i] = false;
-
+                // spawns if dead and has exactly three neighbors
                 else if (CurrentGeneration[i] == false && liveNeighbours == 3)
                     nextGeneration[i] = true;
-
+                // otherwise nothing happens
                 else
                     nextGeneration[i] = CurrentGeneration[i];
             }
 
             TransferNextGenerations();
         }
+
+        public void SetState(int[] gameState)
+        {
+            for (int i = 0; i < gameState.Length; i++)
+            {
+                CurrentGeneration[Math.Abs(gameState[i])] = gameState[i] > 0;
+            }
+        }
+
         #endregion
     }
 }
