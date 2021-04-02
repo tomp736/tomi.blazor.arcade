@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       run: arcade-server-gol
-  replicas: 1
+  replicas: 4
   template:
     metadata:
       annotations:
