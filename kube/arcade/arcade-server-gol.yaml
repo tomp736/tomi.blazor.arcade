@@ -40,13 +40,6 @@ spec:
         - name: ASPNETCORE_Kestrel__Certificates__Default__Password
           value: "crypticpassword"
 
-        - name: Service__GolServer__https__Host
-          value: "arcade-server-gol"
-        - name: Service__GolServer__https__Port
-          value: "443"
-        - name: Service__GolServer__https__Protocol
-          value: "https"
-
         volumeMounts:
         - name: devsecrets-volume
           mountPath: "/etc/devsecrets"
@@ -66,9 +59,9 @@ spec:
   ports:
   - name: http
     port: 80
-    nodePort: 30010
+    nodePort: 30012
   - name: https
     port: 443
-    nodePort: 30011
+    nodePort: 30013
   selector:
     run: arcade-server-gol
