@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: arcade-server
+  name: arcade-server-gol
   namespace: arcade
   labels:
     app: arcade
 spec:
   selector:
     matchLabels:
-      run: arcade-server
+      run: arcade-server-gol
   replicas: 1
   template:
     metadata:
       annotations:
         linkerd.io/inject: enabled
       labels:
-        run: arcade-server
+        run: arcade-server-gol
     spec:
       containers:
       - name: arcade-server
-        image: 10.101.153.109:5000/arcade-server
+        image: 10.101.153.109:5000/arcade-server-gol
         imagePullPolicy: Always
         resources:
           requests:
@@ -59,7 +59,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: arcade-server
+  name: arcade-server-gol
   namespace: arcade
 spec:
   type: NodePort
@@ -71,4 +71,4 @@ spec:
     port: 443
     nodePort: 30011
   selector:
-    run: arcade-server
+    run: arcade-server-gol
