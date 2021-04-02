@@ -19,7 +19,7 @@ spec:
         run: arcade-server-gol
     spec:
       containers:
-      - name: arcade-server
+      - name: arcade-server-gol
         image: 10.101.153.109:5000/arcade-server-gol
         imagePullPolicy: Always
         resources:
