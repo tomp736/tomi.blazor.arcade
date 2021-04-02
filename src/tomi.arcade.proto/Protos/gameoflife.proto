@@ -6,16 +6,28 @@ package gameoflife;
 
 service GameOfLifeService {
   rpc GetState (GameStateRequest) returns (stream GameStateResponse);
+  rpc SetState (SetGameStateRequest) returns (SetGameStateResponse);
 }
 
 message GameStateRequest {
-  GameMap gameMap = 1;
-  repeated bool gameState = 2;
+  Guid gameId = 1;
+  GameMap gameMap = 2;
+  repeated int32 gameState = 3;
 }
 
 message GameStateResponse {
-  GameMap gameMap = 1;
-  repeated CellState gameState = 2;
+  Guid gameId = 1;
+  GameMap gameMap = 2;
+  repeated int32 gameState = 3;
+}
+
+message SetGameStateRequest {
+  Guid gameId = 1;
+  GameMap gameMap = 2;
+  repeated int32 gameState = 3;
+}
+
+message SetGameStateResponse {
 }
 
 message GameMap
@@ -24,8 +36,7 @@ message GameMap
 	int32 y = 2;
 }
 
-message CellState
+message Guid
 {
-	int32 key = 1;
-	bool value = 2;
+	string value = 1;
 }

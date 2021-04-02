@@ -36,7 +36,7 @@ spec:
           value: "http://www.labrats.work:30010"
         - name: ARCADE_SERVER_HTTPS
           value: "https://www.labrats.work:30011"
-
+          
         volumeMounts:
         - name: devsecrets-volume
           mountPath: "/etc/devsecrets"
