@@ -33,12 +33,7 @@ spec:
         - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
           value: "true"
         - name: ASPNETCORE_URLS
-          value: "http://0.0.0.0:80;https://0.0.0.0:443;"
-
-        - name: ASPNETCORE_Kestrel__Certificates__Default__Path
-          value: "/etc/devsecrets/aspnetapp.pfx"
-        - name: ASPNETCORE_Kestrel__Certificates__Default__Password
-          value: "crypticpassword"
+          value: "http://0.0.0.0:80;"
 
         volumeMounts:
         - name: devsecrets-volume
@@ -60,8 +55,5 @@ spec:
   - name: http
     port: 80
     nodePort: 30012
-  - name: https
-    port: 443
-    nodePort: 30013
   selector:
     run: arcade-server-gol
