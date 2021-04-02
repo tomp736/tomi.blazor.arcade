@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace tomi.arcade.game.gol
 {
@@ -6,33 +7,26 @@ namespace tomi.arcade.game.gol
     public class GameOfLife
     {
         #region Properties & Fields
-        public int X { get; }
-        public int Y { get; }
+        Guid GameId { get; set; }
+        public int Width { get; }
+        public int Height { get; }
         public bool[,] CurrentGeneration { get; private set; }
 
         private bool[,] nextGeneration;
         #endregion
 
         #region Constructors
-        /// <summary>
-        /// Default Ctor that sets the board size to 16x16
-        /// </summary>
-        public GameOfLife()
-        {
-            X = 16;
-            Y = 16;
-            SeedGame();
-        }
 
         /// <summary>
         /// Ctor that accepts a custom board size
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public GameOfLife(int x, int y)
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public GameOfLife(Guid gameId, int width, int height)
         {
-            X = x;
-            Y = y;
+            GameId = gameId;
+            Width = width;
+            Height = height;
             SeedGame();
         }
         #endregion
@@ -45,14 +39,14 @@ namespace tomi.arcade.game.gol
         private void SeedGame()
         {
             // Initiate the current and next generation boards
-            CurrentGeneration = new bool[X, Y];
-            nextGeneration = new bool[X, Y];
+            CurrentGeneration = new bool[Width, Height];
+            nextGeneration = new bool[Width, Height];
 
             // Cycle cells using rng to set live/dead cells
             var rng = new Random();
-            for (int i = 0; i < X; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < Y; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     // Random Board
                     if (rng.Next(1, 101) < 95)
@@ -63,14 +57,26 @@ namespace tomi.arcade.game.gol
             }
         }
 
+        public void SetState(int[] gameState)
+        {
+            for (int i = 0; i < gameState.Length; i++)
+            {
+                int index = Math.Abs(gameState[i]);
+                bool state = gameState[i] > 0;
+                int x = index % Width;
+                int y = index - x / Width;
+                CurrentGeneration[x, y] = state;
+            }
+        }
+
         /// <summary>
         /// Transfer next generation to current generation 
         /// </summary>
         private void TransferNextGenerations()
         {
-            for (int i = 0; i < X; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (int j = 0; j < Y; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     CurrentGeneration[i, j] = nextGeneration[i, j];
                 }
@@ -91,9 +97,9 @@ namespace tomi.arcade.game.gol
             {
                 for (int j = -1; j <= 1; j++)
                 {
-                    if (x + i < 0 || x + i >= X)   // Out of bounds
+                    if (x + i < 0 || x + i >= Width)   // Out of bounds
                         continue;
-                    if (y + j < 0 || y + j >= Y)   // Out of bounds
+                    if (y + j < 0 || y + j >= Height)   // Out of bounds
                         continue;
                     if (x + i == x && y + j == y)       // Same Cell
                         continue;
@@ -113,9 +119,9 @@ namespace tomi.arcade.game.gol
         /// </summary>
         public void SpawnNextGeneration()
         {
-            for (int x = 0; x < X; x++)
+            for (int x = 0; x < Width; x++)
             {
-                for (int y = 0; y < Y; y++)
+                for (int y = 0; y < Height; y++)
                 {
                     int liveNeighbours = CalculateLiveNeighbours(x, y);
 
