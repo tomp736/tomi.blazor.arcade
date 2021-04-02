@@ -5,7 +5,7 @@ EXPOSE 443
 
 WORKDIR /code
 COPY ./src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.server.csproj ./src/tomi.arcade.game.gol.server/
-COPY ./src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.csproj ./src/tomi.arcade.game.gol/
+COPY ./src/tomi.arcade.game.gol/tomi.arcade.game.gol.csproj ./src/tomi.arcade.game.gol/
 COPY ./src/tomi.arcade.proto ./src/tomi.arcade.proto
 
 
