@@ -29,6 +29,8 @@ spec:
         ports:
         - name: http
           containerPort: 80
+        - name: http2
+          containerPort: 443
         env:
         - name: ARCADE_SERVER_HTTP
           value: "http://www.labrats.work:30010"
@@ -55,5 +57,8 @@ spec:
   - name: http
     port: 80
     nodePort: 30008
+  - name: http
+    port: 443
+    nodePort: 30009
   selector:
     run: arcade-blazor-client
