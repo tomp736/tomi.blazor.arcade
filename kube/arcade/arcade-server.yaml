@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: arcade-server
+  namespace: arcade
+  labels:
+    app: arcade
+spec:
+  selector:
+    matchLabels:
+      run: arcade-server
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        run: arcade-server
+    spec:
+      containers:
+      - name: arcade-server
+        image: 10.101.153.109:5000/arcade-server
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        env:
+        - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+          value: "true"
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:80;https://0.0.0.0:443;"
+
+        - name: ASPNETCORE_Kestrel__Certificates__Default__Path
+          value: "/etc/devsecrets/aspnetapp.pfx"
+        - name: ASPNETCORE_Kestrel__Certificates__Default__Password
+          value: "crypticpassword"
+
+        - name: Service__GolServer__https__Host
+          value: "arcade-server-gol"
+        - name: Service__GolServer__https__Port
+          value: "80"
+        - name: Service__GolServer__https__Protocol
+          value: "http"
+
+        volumeMounts:
+        - name: devsecrets-volume
+          mountPath: "/etc/devsecrets"
+      volumes:
+        - name: devsecrets-volume
+          secret:
+            secretName: devsecrets
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcade-server
+  namespace: arcade
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    nodePort: 30010
+  - name: https
+    port: 443
+    nodePort: 30011
+  selector:
+    run: arcade-server

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: arcade-blazor-client
+  namespace: arcade
+  labels:
+    app: arcade
+spec:
+  selector:
+    matchLabels:
+      run: arcade-blazor-client
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        run: arcade-blazor-client
+    spec:
+      containers:
+      - name: arcade-blazor-client
+        image: 10.101.153.109:5000/arcade-blazor-client
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: ARCADE_SERVER_HTTP
+          value: "http://www.labrats.work:30010"
+        - name: ARCADE_SERVER_HTTPS
+          value: "https://www.labrats.work:30011"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcade-blazor-client
+  namespace: arcade
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    nodePort: 30008
+  selector:
+    run: arcade-blazor-client

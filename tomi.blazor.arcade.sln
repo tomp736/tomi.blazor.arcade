@@ -15,12 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tomi.arcade.game.client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tomi.arcade.game.gol", "src\tomi.arcade.game.gol\tomi.arcade.game.gol.csproj", "{1E86CE7F-DAFB-4617-A89E-D0BD19B6EDF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tomi.arcade.game.server", "src\tomi.arcade.game.server\tomi.arcade.game.server.csproj", "{5A79EA51-FFC5-4F29-8801-C575082CA925}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{9371CAEA-2129-4D27-BA61-A129E748F4AE}"
 	ProjectSection(SolutionItems) = preProject
 		tye.yaml = tye.yaml
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tomi.arcade.server", "src\tomi.arcade.server\tomi.arcade.server.csproj", "{2CECCB8F-105B-4F53-AC05-DEFE752090DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,18 +92,18 @@ Global
 		{1E86CE7F-DAFB-4617-A89E-D0BD19B6EDF1}.Release|x64.Build.0 = Release|Any CPU
 		{1E86CE7F-DAFB-4617-A89E-D0BD19B6EDF1}.Release|x86.ActiveCfg = Release|Any CPU
 		{1E86CE7F-DAFB-4617-A89E-D0BD19B6EDF1}.Release|x86.Build.0 = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|x64.Build.0 = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Debug|x86.Build.0 = Debug|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|x64.ActiveCfg = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|x64.Build.0 = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|x86.ActiveCfg = Release|Any CPU
-		{5A79EA51-FFC5-4F29-8801-C575082CA925}.Release|x86.Build.0 = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|x64.Build.0 = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Debug|x86.Build.0 = Debug|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|x64.Build.0 = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|x86.ActiveCfg = Release|Any CPU
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,7 +114,7 @@ Global
 		{0B0F67C5-A4B2-459E-BB06-A2C4A844C723} = {2BA6D578-61FD-4467-B17D-A9E49D08FC34}
 		{F6ADE061-BBC3-4E0F-ACDA-70AE301F9266} = {2BA6D578-61FD-4467-B17D-A9E49D08FC34}
 		{1E86CE7F-DAFB-4617-A89E-D0BD19B6EDF1} = {2BA6D578-61FD-4467-B17D-A9E49D08FC34}
-		{5A79EA51-FFC5-4F29-8801-C575082CA925} = {2BA6D578-61FD-4467-B17D-A9E49D08FC34}
+		{2CECCB8F-105B-4F53-AC05-DEFE752090DA} = {2BA6D578-61FD-4467-B17D-A9E49D08FC34}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E79D05DB-1669-4D5C-A99B-478BC8498065}

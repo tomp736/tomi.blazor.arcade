@@ -1,4 +1,5 @@
 using Grpc.Net.Client.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -29,8 +30,7 @@ namespace tomi.arcade.game.client
         {
             builder.Services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
-                // 
-                options.Address = new Uri("https://localhost:5003");
+                options.Address = new Uri($"https://135.181.39.113:30011/");
             })
             .ConfigureChannel((provider, options) =>
             {

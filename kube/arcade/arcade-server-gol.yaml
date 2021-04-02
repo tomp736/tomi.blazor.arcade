@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: arcade-server-gol
+  namespace: arcade
+  labels:
+    app: arcade
+spec:
+  selector:
+    matchLabels:
+      run: arcade-server-gol
+  replicas: 4
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+      labels:
+        run: arcade-server-gol
+    spec:
+      containers:
+      - name: arcade-server-gol
+        image: 10.101.153.109:5000/arcade-server-gol
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: DOTNET_SYSTEM_NET_HTTP_SOCKETSHTTPHANDLER_HTTP2UNENCRYPTEDSUPPORT
+          value: "true"
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:80;"
+
+        volumeMounts:
+        - name: devsecrets-volume
+          mountPath: "/etc/devsecrets"
+      volumes:
+        - name: devsecrets-volume
+          secret:
+            secretName: devsecrets
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcade-server-gol
+  namespace: arcade
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    nodePort: 30012
+  selector:
+    run: arcade-server-gol

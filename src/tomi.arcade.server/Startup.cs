@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
-namespace tomi.arcade.game.server
+namespace tomi.arcade.server
 {
     public class Startup
     {
@@ -22,9 +23,11 @@ namespace tomi.arcade.game.server
             // grpc client for gol.server
             services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>((provider, options) =>
             {
-                var config = provider.GetRequiredService<IConfiguration>();
-                var uri = config.GetServiceUri("GolServer") ?? new System.Uri("https://localhost:5005");
-                options.Address = uri;
+                var host = Environment.GetEnvironmentVariable("Service__GolServer__https__Host");
+                var port = Environment.GetEnvironmentVariable("Service__GolServer__https__Port");
+                var protocol = Environment.GetEnvironmentVariable("Service__GolServer__https__Protocol");
+
+                options.Address = new Uri($"{protocol}://{host}:{port}");
             });
 
             services.AddCors(o => o.AddPolicy("AllowAll", builder =>
