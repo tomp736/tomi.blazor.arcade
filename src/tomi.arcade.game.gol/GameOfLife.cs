@@ -111,6 +111,31 @@ namespace tomi.arcade.game.gol
 
             return liveNeighbours;
         }
+
+        private int CalculateLiveNeighbours(int cell)
+        {
+            // Calculate live neighours
+            int[] neighbors = new int[]
+            {
+                cell - cell - Width - 1,    // top left
+                cell - cell - Width,        // top mid
+                cell - cell - Width + 1,    // top right                
+                cell - 1,                   // left
+                cell + 1,                   // right
+                cell - cell + Width - 1,    // bot left
+                cell - cell + Width,        // bot mid
+                cell - cell + Width + 1,    // bot right
+            };
+
+            int liveNeighbours = 0;
+            foreach (var neighbor in neighbors.Where(n => n >= 0))
+            {
+                int x = neighbor % Width;
+                int y = neighbor - x / Width;
+                liveNeighbours += CurrentGeneration[x, y] ? 1 : 0;
+            }
+            return liveNeighbours;
+        }
         #endregion
 
         #region Public
@@ -123,7 +148,8 @@ namespace tomi.arcade.game.gol
             {
                 for (int y = 0; y < Height; y++)
                 {
-                    int liveNeighbours = CalculateLiveNeighbours(x, y);
+                    //int liveNeighbours = CalculateLiveNeighbours(x, y);
+                    int liveNeighbours = CalculateLiveNeighbours(x * Width + y);
 
                     if (CurrentGeneration[x, y] == true && liveNeighbours < 2)
                         nextGeneration[x, y] = false;
