@@ -30,7 +30,7 @@ namespace tomi.arcade.game.client
         {
             builder.Services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
-                options.Address = new Uri($"http://135.181.39.113:30011/");
+                options.Address = new Uri($"https://135.181.39.113:30011/");
             })
             .ConfigureChannel((provider, options) =>
             {
