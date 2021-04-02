@@ -1,7 +1,9 @@
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using tomi.arcade.protos;
 
@@ -15,11 +17,26 @@ namespace tomi.arcade.game.gol.server
             _logger = logger;
         }
 
+        ConcurrentDictionary<System.Guid, GameOfLife> games = new ConcurrentDictionary<System.Guid, GameOfLife>();
+
+        public override async Task<SetGameStateResponse> SetState(SetGameStateRequest request, ServerCallContext context)
+        {
+            var cancellationToken = context.CancellationToken;
+
+            System.Guid gameId = System.Guid.Parse(request.GameId.Value);
+            GameOfLife _gameOfLife = games.GetOrAdd(gameId, (gameId) => new GameOfLife(gameId, request.GameMap.X, request.GameMap.Y));
+
+            _gameOfLife.SetState(request.GameState.ToArray());
+
+            return new SetGameStateResponse();
+        }
+
         public override async Task GetState(GameStateRequest request, IServerStreamWriter<GameStateResponse> responseStream, ServerCallContext context)
         {
             var cancellationToken = context.CancellationToken;
 
-            GameOfLife _gameOfLife = new GameOfLife(request.GameMap.X, request.GameMap.Y);
+            System.Guid gameId = System.Guid.Parse(request.GameId.Value);
+            GameOfLife _gameOfLife = games.GetOrAdd(gameId, (gameId) => new GameOfLife(gameId, request.GameMap.X, request.GameMap.Y));
             GameMap _gameMap = new GameMap()
             {
                 X = request.GameMap.X,
@@ -43,11 +60,7 @@ namespace tomi.arcade.game.gol.server
                             var thisCell = thisGeneration[i];
                             if (thisCell)
                             {
-                                gameStateResponse.GameState.Add(new CellState()
-                                {
-                                    Key = i,
-                                    Value = thisCell
-                                });
+                                gameStateResponse.GameState.Add(thisCell ? i : -i);
                             }
                         }
                         lastGeneration = thisGeneration;
@@ -60,11 +73,7 @@ namespace tomi.arcade.game.gol.server
                             var thisCell = thisGeneration[i];
                             if (thisCell != lastCell)
                             {
-                                gameStateResponse.GameState.Add(new CellState()
-                                {
-                                    Key = i,
-                                    Value = thisCell
-                                });
+                                gameStateResponse.GameState.Add(thisCell ? i : -i);
                             }
                         }
                         lastGeneration = thisGeneration;

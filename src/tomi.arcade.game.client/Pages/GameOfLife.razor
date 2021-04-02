@@ -59,7 +59,7 @@ else
                 // convert cellstate(index,state) collection to int array to reduce size of jsInterop
                 // negative value indicates new live cell
                 // positive value indicates new dead cell
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState.Select(n => n.Value ? n.Key : -n.Key));
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
             }
         }
         catch (RpcException rpcException)
