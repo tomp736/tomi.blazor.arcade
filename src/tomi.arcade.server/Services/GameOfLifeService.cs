@@ -6,7 +6,7 @@ using tomi.arcade.protos;
 
 namespace tomi.arcade.server
 {
-    public class GameOfLifeService : protos.GameOfLifeService.GameOfLifeServiceBase
+    internal class GameOfLifeService : protos.GameOfLifeService.GameOfLifeServiceBase
     {
         private readonly protos.GameOfLifeService.GameOfLifeServiceClient _client;
         private readonly ILogger<GameOfLifeService> _logger;
