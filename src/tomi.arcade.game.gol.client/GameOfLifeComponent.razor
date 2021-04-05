@@ -1,0 +1,89 @@
+﻿@using System.Threading
+@using System.Linq
+@using Google.Protobuf.Collections
+@using Grpc.Core
+@using Microsoft.JSInterop
+
+@implements IDisposable
+@inject protos.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
+@inject IJSRuntime JsRuntime
+
+Payload Chunks Size (@chunkSize)
+<input type="range" min="0" max="65536" @bind-value="chunkSize" step="64">
+
+Width (@width)
+<input type="range" min="100" max="1200" @bind-value="width" step="20">
+
+Height (@height)
+<input type="range" min="100" max="1200" @bind-value="height" step="20">
+
+@if (!running)
+{
+    <button class="btn btn-primary" @onclick="Start">Start</button>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="Stop">Stop</button>
+}
+
+<canvas id="gameCanvas"></canvas>
+@code {
+    private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+    private bool running = false;
+    private int chunkSize { get; set; } = 0;
+    private int width { get; set; } = 100;
+    private int height { get; set; } = 100;
+
+    private void Stop()
+    {
+        running = false;
+        if (cancellationTokenSource != null)
+        {
+            if (!cancellationTokenSource.IsCancellationRequested)
+            {
+                cancellationTokenSource.Cancel();
+            }
+        }
+        cancellationTokenSource = new CancellationTokenSource();
+    }
+    private Guid gameId = Guid.NewGuid();
+    private async Task Start()
+    {
+        running = true;
+        try
+        {
+            var state = GameOfLifeClient.GetState(new protos.GameStateRequest()
+            {
+                GameId = gameId.ToString(),
+                GameSettings = new protos.GameOfLifeSettings()
+                {
+                    Width = width,
+                    Height = height,
+                    ChunkSize = chunkSize
+                }
+            }, cancellationToken: cancellationTokenSource.Token);
+
+            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", width, height);
+
+            while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
+            {
+                running = true;
+                protos.GameStateResponse gameStateResponse = state.ResponseStream.Current;
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
+            }
+        }
+        catch (RpcException rpcException)
+        {
+            // cancelled, so...
+        }
+        catch (OperationCanceledException)
+        {
+            // cancelled, so...
+        }
+    }
+    void IDisposable.Dispose()
+    {
+        Stop();
+    }
+}
