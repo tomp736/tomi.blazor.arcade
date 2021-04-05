@@ -1,7 +1,7 @@
 name: arcade
 services:
 - name: client
-  project: src/tomi.arcade.game.client/tomi.arcade.game.client.csproj
+  project: src/tomi.arcade.client/tomi.arcade.client.csproj
   bindings:
     - protocol: https
       port: 5001

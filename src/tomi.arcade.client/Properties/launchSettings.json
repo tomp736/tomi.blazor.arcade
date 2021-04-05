@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "tomi.arcade.game.client": {
+    "tomi.arcade.client": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using tomi.arcade.protos;
 
-namespace tomi.arcade.game.client
+namespace tomi.arcade.client
 {
     public class Program
     {
