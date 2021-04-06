@@ -10,7 +10,7 @@ namespace tomi.arcade.game.gol.client
     {
         public static void AddGameOfLifeServiceClient(this WebAssemblyHostBuilder builder)
         {
-            builder.Services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
+            builder.Services.AddGrpcClient<game.gol.proto.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
                 var config = provider.GetService<IConfiguration>();
                 UriInfo settings = config.GetSection("arcadeServer").Get<UriInfo>();

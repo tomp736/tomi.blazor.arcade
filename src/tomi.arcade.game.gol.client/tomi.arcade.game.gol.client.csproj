@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\tomi.arcade.proto\Protos\gameoflife.proto" GrpcServices="Client" Access="internal" >
+    <Protobuf Include="..\tomi.arcade.game.gol.proto\gameoflife.proto" GrpcServices="Client" Access="internal" >
       <Link>Protos\gameoflife.proto</Link>
     </Protobuf>
   </ItemGroup>

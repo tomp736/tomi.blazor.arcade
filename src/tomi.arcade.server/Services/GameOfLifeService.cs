@@ -2,22 +2,22 @@ using Grpc.Core;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
-using tomi.arcade.protos;
+using tomi.arcade.game.gol.proto;
 
 namespace tomi.arcade.server
 {
-    internal class GameOfLifeService : protos.GameOfLifeService.GameOfLifeServiceBase
+    internal class GameOfLifeService : game.gol.proto.GameOfLifeService.GameOfLifeServiceBase
     {
-        private readonly protos.GameOfLifeService.GameOfLifeServiceClient _client;
+        private readonly game.gol.proto.GameOfLifeService.GameOfLifeServiceClient _client;
         private readonly ILogger<GameOfLifeService> _logger;
 
-        public GameOfLifeService(protos.GameOfLifeService.GameOfLifeServiceClient client, ILogger<GameOfLifeService> logger)
+        public GameOfLifeService(game.gol.proto.GameOfLifeService.GameOfLifeServiceClient client, ILogger<GameOfLifeService> logger)
         {
             _client = client;
             _logger = logger;
         }
 
-        public override async Task GetState(GameStateRequest request, IServerStreamWriter<GameStateResponse> responseStream, ServerCallContext context)
+        public override async Task GetState(GameOfLifeRequest request, IServerStreamWriter<GameOfLifeResponse> responseStream, ServerCallContext context)
         {
             _logger.LogInformation("Getting game state.");
 

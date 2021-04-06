@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-option csharp_namespace = "tomi.arcade.protos";
+option csharp_namespace = "tomi.arcade.game.gol.proto";
 
 package gameoflife;
 
 service GameOfLifeService {
-  rpc GetState (GameStateRequest) returns (stream GameStateResponse);
+  rpc GetState (GameOfLifeRequest) returns (stream GameOfLifeResponse);
 }
 
-message GameStateRequest {
+message GameOfLifeRequest {
   string gameId = 1;
   GameOfLifeSettings gameSettings = 2;
 }
 
-message GameStateResponse {
+message GameOfLifeResponse {
   string gameId = 1;
   GameOfLifeSettings gameSettings = 2;
   repeated int32 gameState = 3;
