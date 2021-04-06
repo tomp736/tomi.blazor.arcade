@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\src\tomi.arcade.proto\Protos\gameoflife.proto" GrpcServices="Client">
+    <Protobuf Include="..\..\src\tomi.arcade.game.gol.proto\gameoflife.proto" GrpcServices="Client" >
       <Link>Protos\gameoflife.proto</Link>
     </Protobuf>
   </ItemGroup>

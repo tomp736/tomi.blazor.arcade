@@ -21,7 +21,7 @@ namespace tomi.arcade.server
             });
 
             // grpc client for gol.server
-            services.AddGrpcClient<protos.GameOfLifeService.GameOfLifeServiceClient>((provider, options) =>
+            services.AddGrpcClient<game.gol.proto.GameOfLifeService.GameOfLifeServiceClient>((provider, options) =>
             {
                 var host = Environment.GetEnvironmentVariable("Service__GolServer__https__Host");
                 var port = Environment.GetEnvironmentVariable("Service__GolServer__https__Port");

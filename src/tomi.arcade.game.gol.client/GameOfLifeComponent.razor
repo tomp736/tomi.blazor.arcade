@@ -5,7 +5,7 @@
 @using Microsoft.JSInterop
 
 @implements IDisposable
-@inject protos.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
+@inject tomi.arcade.game.gol.proto.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
 @inject IJSRuntime JsRuntime
 
 Payload Chunks Size (@chunkSize)
@@ -53,10 +53,10 @@ else
         running = true;
         try
         {
-            var state = GameOfLifeClient.GetState(new protos.GameStateRequest()
+            var state = GameOfLifeClient.GetState(new game.gol.proto.GameOfLifeRequest()
             {
                 GameId = gameId.ToString(),
-                GameSettings = new protos.GameOfLifeSettings()
+                GameSettings = new game.gol.proto.GameOfLifeSettings()
                 {
                     Width = width,
                     Height = height,
@@ -69,7 +69,7 @@ else
             while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
             {
                 running = true;
-                protos.GameStateResponse gameStateResponse = state.ResponseStream.Current;
+                game.gol.proto.GameOfLifeResponse gameStateResponse = state.ResponseStream.Current;
                 await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
             }
         }

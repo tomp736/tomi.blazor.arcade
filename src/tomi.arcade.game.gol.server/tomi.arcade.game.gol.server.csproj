@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\tomi.arcade.proto\Protos\gameoflife.proto" GrpcServices="Server">
+    <Protobuf Include="..\tomi.arcade.game.gol.proto\gameoflife.proto" GrpcServices="Server">
       <Link>Protos\gameoflife.proto</Link>
     </Protobuf>
   </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.34.0" />
     <PackageReference Include="Microsoft.Tye.Extensions.Configuration" Version="0.6.0-alpha.21070.5" />
