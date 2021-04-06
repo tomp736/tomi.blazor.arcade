@@ -10,10 +10,10 @@ namespace tomi.arcade.server.tests
 {
     public class ArcadeApplicationFactory : WebApplicationFactory<Startup>
     {
-        public protos.GameOfLifeService.GameOfLifeServiceClient CreateGrpcClient()
+        public game.gol.proto.GameOfLifeService.GameOfLifeServiceClient CreateGrpcClient()
         {
             var channel = this.CreateGrpcChannel();
-            return new protos.GameOfLifeService.GameOfLifeServiceClient(channel);
+            return new game.gol.proto.GameOfLifeService.GameOfLifeServiceClient(channel);
         }
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)

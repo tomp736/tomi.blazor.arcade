@@ -1,7 +1,6 @@
 using Grpc.Core;
 using System;
 using System.Threading.Tasks;
-using tomi.arcade.protos;
 using Xunit;
 
 namespace tomi.arcade.server.tests
@@ -20,10 +19,10 @@ namespace tomi.arcade.server.tests
         {
             var client = _factory.CreateGrpcClient();
 
-            var request = new protos.GameStateRequest()
+            var request = new game.gol.proto.GameOfLifeRequest()
             {
                 GameId = Guid.NewGuid().ToString(),
-                GameSettings = new protos.GameOfLifeSettings()
+                GameSettings = new game.gol.proto.GameOfLifeSettings()
                 {
                     Width = 100,
                     Height = 100,
