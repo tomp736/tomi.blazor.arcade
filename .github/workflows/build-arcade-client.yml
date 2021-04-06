@@ -1,4 +1,4 @@
-name: .Net Build Arcade Game Gol Server
+name: .Net Build Arcade Client
 
 on:
   push:
