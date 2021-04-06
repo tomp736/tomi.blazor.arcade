@@ -6,6 +6,8 @@ namespace tomi.arcade.game.gol
 {
     public class GameOfLife
     {
+        test broken
+
         #region Properties & Fields
         Guid GameId { get; set; }
         public int Width { get; }
