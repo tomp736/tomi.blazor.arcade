@@ -19,4 +19,4 @@ jobs:
       with:
         dotnet-version: 5.0.x            
     - name: Build with dotnet
-      run: dotnet build -c Release -o /build ./src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.server.csproj
+      run: dotnet build -c Release -o ./build ./src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.server.csproj
