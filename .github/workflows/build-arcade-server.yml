@@ -25,6 +25,7 @@ jobs:
         repository: labrats-work/gitops
         token: ${{ secrets.GITOPS_REPO_PAT }}
         path: gitops
+        ref: master
         
     - name: Copy CI files for build.
       run: cp -rv gitops/tomi.blazor.arcade/* main      
