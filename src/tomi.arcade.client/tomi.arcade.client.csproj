@@ -21,4 +21,8 @@
     <ProjectReference Include="..\tomi.arcade.game.gol.client\tomi.arcade.game.gol.client.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\blog\" />
+  </ItemGroup>
+
 </Project>
