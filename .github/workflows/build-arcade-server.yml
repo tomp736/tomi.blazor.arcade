@@ -13,10 +13,31 @@ jobs:
     runs-on: ubuntu-latest
     name: .NET 5 Application
     steps:
-    - uses: actions/checkout@v2    
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - name: Checkout Project
+      uses: actions/checkout@v2
       with:
-        dotnet-version: 5.0.x            
-    - name: Build with dotnet
-      run: dotnet build -c Release -o ./build ./src/tomi.arcade.server/tomi.arcade.server.csproj
+        repository: labrats-work/gitops
+        path: main
+      
+    - name: Checkout Tools
+      uses: actions/checkout@v2
+      with:
+        repository: labrats-work/gitops
+        path: gitops
+        
+    - name: Copy CI files for build.
+      run: cp -rv gitops/tomi.blazor.arcade/* main      
+      
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: main/docker/arcade-blazor-client.Dockerfile
+        push: true
+        tags: taps521/arcade-blazor-client:latest
