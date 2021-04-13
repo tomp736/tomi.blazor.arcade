@@ -11,7 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: .NET 5 Application
+    strategy:
+      matrix:
+        dotnet: [ '5.0.x', '6.0.100-preview.3.21202.5' ]
+    name: .NET ${{ matrix.dotnet }} Build
     steps:
     - uses: actions/checkout@v2    
     - name: Setup .NET Core
