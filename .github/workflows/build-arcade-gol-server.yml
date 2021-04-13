@@ -11,12 +11,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: .NET 5 Application
+    strategy:
+      matrix:
+        dotnet: [ '5.0.x', '6.0.x' ]
+    name: .NET Build
     steps:
     - uses: actions/checkout@v2    
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x            
+        dotnet-version: ${{ matrix.dotnet }}
     - name: Build with dotnet
       run: dotnet build -c Release -o ./build ./src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.server.csproj
