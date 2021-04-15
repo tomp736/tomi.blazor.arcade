@@ -1,0 +1,19 @@
+name: arcade
+services:
+- name: client
+  project: src/tomi.arcade.client/tomi.arcade.client.csproj
+  bindings:
+    - protocol: https
+      port: 5001
+      
+- name: gameserver
+  project: src/tomi.arcade.server/tomi.arcade.server.csproj
+  bindings:
+    - protocol: https
+      port: 5003
+
+- name: gamegolserver
+  project: src/tomi.arcade.game.gol.server/tomi.arcade.game.gol.server.csproj
+  bindings:
+    - protocol: https
+      port: 5005
