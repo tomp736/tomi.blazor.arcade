@@ -1,0 +1,25 @@
+name: .Net Build Arcade Server
+
+on:
+  push:
+    branches: master
+      
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet: [ '5.0.x', '6.0.100-preview.3.21202.5' ]
+    name: .NET ${{ matrix.dotnet }} Build
+    steps:
+    - uses: actions/checkout@v2    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x            
+    - name: Build with dotnet
+      run: dotnet build -c Release -o ./build ./src/tomi.arcade.server/tomi.arcade.server.csproj
