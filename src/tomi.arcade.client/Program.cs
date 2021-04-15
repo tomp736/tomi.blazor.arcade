@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using tomi.arcade.client.settings;
 using tomi.arcade.game.gol.client;
 
 namespace tomi.arcade.client
@@ -17,6 +18,8 @@ namespace tomi.arcade.client
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.AddGameOfLifeServiceClient();
+
+            builder.Services.AddSingleton<DarkModeJsInterop>();
 
             await builder.Build().RunAsync();
         }
