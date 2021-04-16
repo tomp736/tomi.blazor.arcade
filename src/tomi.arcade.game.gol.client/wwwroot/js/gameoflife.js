@@ -44,13 +44,20 @@
             }
 
             this.draw(liveCells, liveColor);
-            this.draw(deadCells, deadColor);
+            this.clear(deadCells);
         },
 
         draw: function (cells, color) {
             _context.fillStyle = color;
             for (li = 0; li <= cells.length - 1; li++) {
                 _context.fillRect(cells[li].x, cells[li].y, 1, 1)
+            }
+        },
+
+        clear: function (cells) {
+            _context.fillStyle = color;
+            for (li = 0; li <= cells.length - 1; li++) {
+                _context.clearRect(cells[li].x, cells[li].y, 1, 1)
             }
         }
     }
