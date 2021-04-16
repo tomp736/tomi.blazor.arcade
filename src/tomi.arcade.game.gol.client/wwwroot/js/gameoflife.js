@@ -55,7 +55,6 @@
         },
 
         clear: function (cells) {
-            _context.fillStyle = color;
             for (li = 0; li <= cells.length - 1; li++) {
                 _context.clearRect(cells[li].x, cells[li].y, 1, 1)
             }
