@@ -6,16 +6,19 @@
 
 @implements IDisposable
 @inject tomi.arcade.game.gol.proto.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
+@inject tomi.arcade.client.settings.ClientSettingsService ClientSettingsService;
 @inject IJSRuntime JsRuntime
 
-Payload Chunks Size (@chunkSize)
-<input type="range" min="0" max="65536" @bind-value="chunkSize" step="64">
+<div class="input-group mb-3">
+    <span class="input-group-text">Width (@width)</span>
+    <input class="form-control" type="range" min="180" max="1200" @bind-value="width" step="20">
+</div>
 
-Width (@width)
-<input type="range" min="100" max="1200" @bind-value="width" step="20">
+<div class="input-group mb-3">
+    <span class="input-group-text">Height (@height)</span>
+    <input class="form-control"  type="range" min="180" max="1200" @bind-value="height" step="20">
+</div>
 
-Height (@height)
-<input type="range" min="100" max="1200" @bind-value="height" step="20">
 
 @if (!running)
 {
@@ -31,7 +34,6 @@ else
     private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
     private bool running = false;
-    private int chunkSize { get; set; } = 0;
     private int width { get; set; } = 100;
     private int height { get; set; } = 100;
 
@@ -59,18 +61,17 @@ else
                 GameSettings = new game.gol.proto.GameOfLifeSettings()
                 {
                     Width = width,
-                    Height = height,
-                    ChunkSize = chunkSize
+                    Height = height
                 }
             }, cancellationToken: cancellationTokenSource.Token);
 
-            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", width, height);
+            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", ClientSettingsService.BackgroundColor1, ClientSettingsService.TextColor1);
 
             while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
             {
                 running = true;
                 game.gol.proto.GameOfLifeResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState, "", "");
             }
         }
         catch (RpcException rpcException)

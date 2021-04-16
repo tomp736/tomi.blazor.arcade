@@ -20,6 +20,7 @@ namespace tomi.arcade.client
             builder.AddGameOfLifeServiceClient();
 
             builder.Services.AddSingleton<DarkModeJsInterop>();
+            builder.Services.AddScoped<ClientSettingsService>();
 
             await builder.Build().RunAsync();
         }
