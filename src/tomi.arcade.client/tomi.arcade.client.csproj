@@ -1,29 +1,24 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
-
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.15.6" />
-    <PackageReference Include="Grpc.Net.Client.Web" Version="2.36.0" />
-    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.36.0" />
-    <PackageReference Include="Grpc.Tools" Version="2.36.4">
+    <PackageReference Include="Google.Protobuf" Version="4.0.0-rc2"/>
+    <PackageReference Include="Grpc.Net.Client.Web" Version="2.37.0-pre1"/>
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.37.0-pre1"/>
+    <PackageReference Include="Grpc.Tools" Version="2.37.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.4" PrivateAssets="all" />
-    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.3.21201.13"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.3.21201.13"/>
+    <PackageReference Include="System.Net.Http.Json" Version="6.0.0-preview.3.21201.4"/>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\tomi.arcade.client.settings\tomi.arcade.client.settings.csproj" />
-    <ProjectReference Include="..\tomi.arcade.game.gol.client\tomi.arcade.game.gol.client.csproj" />
+    <ProjectReference Include="..\tomi.arcade.client.settings\tomi.arcade.client.settings.csproj"/>
+    <ProjectReference Include="..\tomi.arcade.game.gol.client\tomi.arcade.game.gol.client.csproj"/>
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="wwwroot\blog\" />
+    <Folder Include="wwwroot\blog\"/>
   </ItemGroup>
-
 </Project>

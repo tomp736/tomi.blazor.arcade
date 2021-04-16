@@ -2,3 +2,11 @@ body {
     background-color: #f0f8ff;
     color: #182227;
   }
+
+  input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #666;
+      opacity: 0.5;
+      width: .5em;
+      height: 1.5em;
+  }

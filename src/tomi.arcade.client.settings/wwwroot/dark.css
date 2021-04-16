@@ -7,3 +7,28 @@ body {
   {
     color: #f0f8ff !important;
   }
+
+  .input-group-text
+  {
+    background-color: #182227;
+    color: #f0f8ff;
+  }
+
+  .form-control
+  {
+    background-color: #182227;
+    color: #f0f8ff;
+  }
+
+  .form-control:focus {
+    background-color: #212529;
+    color: #f0f8ff;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: #666;
+      opacity: 0.5;
+      width: .5em;
+      height: 1.5em;
+  }
