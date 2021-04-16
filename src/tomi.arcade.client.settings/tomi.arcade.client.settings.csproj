@@ -6,7 +6,7 @@
     <SupportedPlatform Include="browser"/>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.5"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0.4"/>
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.0-preview.3.21201.13"/>

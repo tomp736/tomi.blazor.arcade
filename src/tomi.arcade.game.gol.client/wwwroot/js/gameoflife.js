@@ -7,13 +7,6 @@
     var _width;
     var _height;
 
-    var _lastState;
-
-    var m_canvas;
-    var m_context;
-
-    var m_drawing;
-
     var initGame = function (canvasId, width, height) {
         _width = width;
         _height = height;
@@ -22,11 +15,6 @@
         _context = _canvas.getContext('2d');
         _canvas.width = _width;
         _canvas.height = _height;
-
-        m_canvas = document.createElement('canvas');
-        m_context = m_canvas.getContext('2d');
-        m_canvas.width = _width;
-        m_canvas.height = _height;
     }
 
     return {
@@ -35,7 +23,7 @@
             initGame(canvasId, width, height);
         },
 
-        setGameState: function (gameState) {
+        setGameState: function (gameState, liveColor, deadColor) {
             var liveCells = [];
             var deadCells = [];
 
@@ -55,22 +43,12 @@
                 }
             }
 
-            this.drawLive(liveCells);
-            this.drawDead(deadCells);
-
-            //_context.clearRect(0, 0, _width, _height)
-            //_context.drawImage(m_canvas, 0, 0);
+            this.draw(liveCells, liveColor);
+            this.draw(deadCells, deadColor);
         },
 
-        drawLive: function (cells) {
-            _context.fillStyle = "black";
-            for (li = 0; li <= cells.length - 1; li++) {
-                _context.fillRect(cells[li].x, cells[li].y, 1, 1)
-            }
-        },
-
-        drawDead: function (cells) {
-            _context.fillStyle = "white";
+        draw: function (cells, color) {
+            _context.fillStyle = color;
             for (li = 0; li <= cells.length - 1; li++) {
                 _context.fillRect(cells[li].x, cells[li].y, 1, 1)
             }

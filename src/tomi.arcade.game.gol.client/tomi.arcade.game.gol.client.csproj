@@ -22,6 +22,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tomi.arcade.client.settings\tomi.arcade.client.settings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Protobuf Include="..\tomi.arcade.game.gol.proto\gameoflife.proto" GrpcServices="Client" Access="internal" >
       <Link>Protos\gameoflife.proto</Link>
     </Protobuf>

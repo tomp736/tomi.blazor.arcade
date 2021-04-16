@@ -1,4 +1,4 @@
-﻿@inject tomi.arcade.client.settings.DarkModeJsInterop DarkModeJsInterop
+﻿@inject tomi.arcade.client.settings.ClientSettingsService ClientSettingsService
 
 <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" id="darkModeCheck" @bind="DarkMode" />
@@ -14,19 +14,7 @@
         set
         {
             _darkMode = value;
-            ToggleDarkMode();
-        }
-    }
-
-    public async Task ToggleDarkMode()
-    {
-        if (_darkMode)
-        {
-            await DarkModeJsInterop.SetDarkMode();
-        }
-        else
-        {
-            await DarkModeJsInterop.SetLightMode();
+            ClientSettingsService.DarkMode = value;
         }
     }
 }
