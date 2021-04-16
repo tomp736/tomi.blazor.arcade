@@ -71,7 +71,7 @@ else
             {
                 running = true;
                 game.gol.proto.GameOfLifeResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState, ClientSettingsService.BackgroundColor1, ClientSettingsService.TextColor1);
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState);
             }
         }
         catch (RpcException rpcException)

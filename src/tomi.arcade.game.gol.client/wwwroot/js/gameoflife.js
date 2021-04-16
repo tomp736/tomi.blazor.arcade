@@ -23,7 +23,7 @@
             initGame(canvasId, width, height);
         },
 
-        setGameState: function (gameState, liveColor, deadColor) {
+        setGameState: function (gameState, liveColor) {
             var liveCells = [];
             var deadCells = [];
 
