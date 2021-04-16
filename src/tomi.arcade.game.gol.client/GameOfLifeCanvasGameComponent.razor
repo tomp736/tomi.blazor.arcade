@@ -65,13 +65,13 @@ else
                 }
             }, cancellationToken: cancellationTokenSource.Token);
 
-            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", ClientSettingsService.BackgroundColor1, ClientSettingsService.TextColor1);
+            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", width, height);
 
             while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
             {
                 running = true;
                 game.gol.proto.GameOfLifeResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState, "", "");
+                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState, ClientSettingsService.BackgroundColor1, ClientSettingsService.TextColor1);
             }
         }
         catch (RpcException rpcException)
