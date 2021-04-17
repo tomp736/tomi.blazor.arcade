@@ -1,11 +1,10 @@
 ﻿@using System.Threading
-@using System.Linq
-@using Google.Protobuf.Collections
 @using Grpc.Core
 @using Microsoft.JSInterop
 
 @implements IDisposable
 @inject tomi.arcade.game.gol.proto.GameOfLifeService.GameOfLifeServiceClient GameOfLifeClient
+@inject tomi.arcade.game.gol.client.GameOfLifeCanvasJsInterop GameOfLifeJsInterop
 @inject tomi.arcade.client.settings.ClientSettingsService ClientSettingsService;
 @inject IJSRuntime JsRuntime
 
@@ -65,13 +64,13 @@ else
                 }
             }, cancellationToken: cancellationTokenSource.Token);
 
-            await JsRuntime.InvokeVoidAsync("GameOfLife.initCanvas", "#gameCanvas", width, height);
+            await GameOfLifeJsInterop.InitCanvas("#gameCanvas", width, height);
 
             while (await state.ResponseStream.MoveNext(cancellationTokenSource.Token))
             {
                 running = true;
                 game.gol.proto.GameOfLifeResponse gameStateResponse = state.ResponseStream.Current;
-                await JsRuntime.InvokeVoidAsync("GameOfLife.setGameState", gameStateResponse.GameState, ClientSettingsService.TextColor1);
+                await GameOfLifeJsInterop.SetGameState(gameStateResponse.GameState, ClientSettingsService.TextColor1);
             }
         }
         catch (RpcException rpcException)
@@ -83,6 +82,7 @@ else
             // cancelled, so...
         }
     }
+    
     void IDisposable.Dispose()
     {
         Stop();

@@ -10,6 +10,7 @@ namespace tomi.arcade.game.gol.client
     {
         public static void AddGameOfLifeServiceClient(this WebAssemblyHostBuilder builder)
         {
+            builder.Services.AddSingleton<GameOfLifeCanvasJsInterop>();            
             builder.Services.AddGrpcClient<game.gol.proto.GameOfLifeService.GameOfLifeServiceClient>("gameoflife", (provider, options) =>
             {
                 var config = provider.GetService<IConfiguration>();
